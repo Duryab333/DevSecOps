@@ -1,0 +1,2 @@
+# Scan the Dockerfile for issues & CVEs
+name: Docker Lint
