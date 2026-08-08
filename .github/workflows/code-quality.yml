@@ -1,0 +1,33 @@
+# Liniting and SAST scan
+# lint -flask8 & Bandit
+name: Code Quality 
+
+on:
+  workflow_call:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11","3.12"]
+    steps:
+      - name: checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup pyhton ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          pyhton-version: ${{ matrix.pyhton-version }}
+      
+      - name: Install dependenices
+        run: pip install -r requirements.txt 
+
+      - name: run linter
+        run: flask8 app.py
+      
+      - name: run SAST
+        run: bandit -r app.py
+
+      
