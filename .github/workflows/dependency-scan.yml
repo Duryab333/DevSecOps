@@ -1,0 +1,26 @@
+# packages - issues or vulneablity scan
+# for python: pip-audit
+name: Dependency Scan
+
+on:
+  workflow_call:
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: chekcout code
+        uses: actions/chekcout@v4
+
+      - name: python setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Insall pip audit
+        run: pip install pip-audit
+      
+      - name: Audit Dependencies
+        run: pip audit -r requirements.txt
+        
+
