@@ -20,9 +20,13 @@ jobs:
     secrets: inherit
     
   # Build once the Security Scanns are complete
-  build-push:
+  build:
     needs: [code-quality, secrets-scan, dependency-scan, docker-scan]
     uses: ./.github/workflows/build-and-push.yml
     secrets: inherit
+
+  trivy:
+    needs: [build]
+    uses: ./.github/workflows/image-scan.yml
 
 
