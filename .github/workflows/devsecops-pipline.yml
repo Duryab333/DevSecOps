@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  # CI (continous Integraion with security scanning)
   code-quality:  
     uses: ./.github/workflows/code-quality.yml
 
@@ -17,8 +18,11 @@ jobs:
   docker-scan:
     uses:  ./.github/workflows/docker-lint.yml
     secrets: inherit
-
+    
+  # Build once the Security Scanns are complete
   build-push:
+    needs: [code-quality, secrets-scan, dependency-scan, docker-scan]
     uses: ./.github/workflows/build-and-push.yml
     secrets: inherit
+
 
