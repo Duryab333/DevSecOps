@@ -25,7 +25,7 @@ jobs:
         run: pip install -r requirements.txt 
 
       - name: run linter
-        run: flask8 app.py
+        run: flask --app app.py
       
       - name: run SAST
         run: bandit -r app.py
