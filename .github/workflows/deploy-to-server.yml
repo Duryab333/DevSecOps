@@ -45,7 +45,7 @@ jobs:
             #sudo apt-get install docker.io && sudo apt-get docker-compose-v2 -y
             #sudo usermod -aG $USER && newgrp docker
             export DOCKER_TAG=${{github.sha}}
-            export DOCKERHUB_TOKEN=${{secrets.DOCKERHUB_USERNAME }}
+            export DOCKERHUB_USERNAME=${{secrets.DOCKERHUB_USERNAME }}
             echo $DOCKER_TAG
             echo  ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username  ${{secrets.DOCKERHUB_USERNAME }} --password-stdin
             cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
