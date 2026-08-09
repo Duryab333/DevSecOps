@@ -29,6 +29,9 @@ jobs:
           key:  ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           source: docker-compose.yml
           target: ~/devops
+
+      - name: set DOCKER_TAG environment variable
+        run: echo "DOCKER_TAG=${{github.event.workflow_run.head_sha}}" >> $GITHUB_ENV
     
       - name: SSH to Prod server & run the app
         uses: appleboy/ssh-action@v1
@@ -41,8 +44,8 @@ jobs:
             #sudo apt-get install docker.io && sudo apt-get docker-compose-v2 -y
             #sudo usermod -aG $USER && newgrp docker
             export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-            export DOCKER_TAG=${{github.event.workflow_run.head_sha}}
-            echo "DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME"
+            export DOCKER_TAG=${{env.DOCKER_TAG}}
+            echo "DOCKER_TAG=$DOCKER_TAG"
             echo  ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username  ${{secrets.DOCKERHUB_USERNAME }} --password-stdin
             cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
 
