@@ -40,8 +40,8 @@ jobs:
             echo "Runing App"
             #sudo apt-get install docker.io && sudo apt-get docker-compose-v2 -y
             #sudo usermod -aG $USER && newgrp docker
-            export DOCKERHUB_USERNAME = ${{ secrets.DOCKERHUB_USERNAME }}
-            export DOCKER_TAG = ${{github.event.workflow_run.head_sha}}
+            export DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+            export DOCKER_TAG=${{github.event.workflow_run.head_sha}}
             echo  ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
             cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
 
