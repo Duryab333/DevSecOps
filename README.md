@@ -4,9 +4,8 @@ A practical **DevSecOps project** that takes a Python Flask application from sou
 
 The main goal of this project is to demonstrate how security can be integrated directly into a CI/CD pipeline instead of being treated as a separate step.
 
----
 
-## 🐍 Application
+##  Application
 
 The project is a simple **Python Flask web application** with two endpoints:
 
@@ -17,11 +16,9 @@ The application runs using **Gunicorn** inside a lightweight Python Alpine Docke
 
 The application itself is intentionally simple so the focus remains on the **DevOps and DevSecOps workflow**.
 
----
 
 
-
-# 🏗️ Architecture
+#  Architecture
 
 ```text
                          Developer
@@ -76,9 +73,9 @@ The application itself is intentionally simple so the focus remains on the **Dev
 
 The workflow is orchestrated by `.github/workflows/devsecops-pipline.yml`, which calls the individual reusable workflows in sequence.
 
----
 
-## 🔐 Security Checks
+
+##  Security Checks
 
 | Stage               | Tool            | What it checks                            |
 | ------------------- | --------------- | ----------------------------------------- |
@@ -88,29 +85,28 @@ The workflow is orchestrated by `.github/workflows/devsecops-pipline.yml`, which
 | Dockerfile scanning | Hadolint        | Dockerfile best practices                 |
 | Image scanning      | Trivy           | HIGH / CRITICAL container vulnerabilities |
 
-### Code & SAST
+- ### Code & SAST
 
-Bandit is used to perform static security analysis on the Python application.
+  Bandit is used to perform static security analysis on the Python application.
 
-### Secrets
+- ### Secrets
 
-GitLeaks scans the repository for accidentally committed credentials, API keys, tokens, and other sensitive information.
+  GitLeaks scans the repository for accidentally committed credentials, API keys, tokens, and other sensitive information.
 
-### Dependencies
+- ### Dependencies
 
-`pip-audit` checks the Python packages defined in `requirements.txt` for known vulnerabilities.
+  `pip-audit` checks the Python packages defined in `requirements.txt` for known vulnerabilities.
 
-### Dockerfile
+- ### Dockerfile
 
-Hadolint validates the Dockerfile before the image is built.
+  Hadolint validates the Dockerfile before the image is built.
 
-### Container Image
+- ### Container Image
 
-After the image is built, **Trivy** scans it for vulnerabilities. The pipeline is configured to fail for **HIGH** and **CRITICAL** findings.
+  After the image is built, **Trivy** scans it for vulnerabilities. The pipeline is configured to fail for **HIGH** and **CRITICAL** findings.
 
----
 
-## 🐳 Build & Deployment
+##  Build & Deployment
 
 Once the initial checks pass, GitHub Actions builds the Docker image and pushes it to Docker Hub.
 
@@ -132,9 +128,9 @@ After the Trivy scan succeeds, the deployment workflow:
 4. Pulls the required image.
 5. Restarts the application using Docker Compose.
 
----
 
-## 📁 Project Structure
+
+##  Project Structure
 
 ```text
 DevSecOps/
@@ -159,7 +155,7 @@ DevSecOps/
 
 ---
 
-## 🔑 GitHub Secrets
+##  GitHub Secrets
 
 The pipeline uses GitHub Secrets for sensitive credentials:
 
@@ -174,9 +170,9 @@ EC2_SSH_PRIVATE_KEY
 
 These credentials are used for Docker Hub authentication and SSH-based deployment. They are **not stored directly in the repository**.
 
----
 
-## ▶️ Run Locally
+
+## Run Locally
 
 ### Using Python
 
@@ -204,29 +200,46 @@ The application will be available at:
 http://localhost
 ```
 
----
 
-## 🛠️ Tech Stack
 
-**Application**
 
-Python · Flask · Gunicorn
+#  Technologies Used
 
-**CI/CD**
+### Application
 
-GitHub Actions · Docker · Docker Hub
+* Python
+* Flask
+* Gunicorn
 
-**Security**
+### Containerization
 
-Bandit · GitLeaks · pip-audit · Hadolint · Trivy
+* Docker
+* Docker Compose
+* Docker Hub
+* Python Alpine image
 
-**Deployment**
+### CI/CD
 
-Linux · SSH · Docker Compose
+* GitHub Actions
+* Reusable workflows
 
----
+### DevSecOps / Security
 
-## 🎯 What This Project Demonstrates
+* Bandit
+* GitLeaks
+* pip-audit
+* Hadolint
+* Trivy
+
+### Infrastructure / Deployment
+
+* Linux server / EC2
+* SSH
+* Docker Compose
+
+
+
+##  What This Project Demonstrates
 
 This project brings together several real-world DevOps/DevSecOps practices:
 
