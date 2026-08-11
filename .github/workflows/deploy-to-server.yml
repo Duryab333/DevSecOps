@@ -42,7 +42,7 @@ jobs:
           key:  ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           script: |
             echo "Runing App"
-            #sudo apt-get install docker.io && sudo apt-get docker-compose-v2 -y
+            #sudo apt-get install docker.io && sudo apt install  docker-compose-v2 -y
             #sudo usermod -aG $USER && newgrp docker
             export DOCKER_TAG=${{github.sha}}
             export DOCKERHUB_USERNAME=${{secrets.DOCKERHUB_USERNAME }}
